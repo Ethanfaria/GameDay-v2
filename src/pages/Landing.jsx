@@ -8,17 +8,10 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import NavBar from "../components/NavBar";
 import Footer from "../components/Footer";
+import BentoBox from "../components/BentoBox";
 
-// Reusable Card Component
-const Card = ({ children, className = "" }) => {
-  return (
-    <div
-      className={`rounded-2xl backdrop-blur-md transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl border border-white/10 ${className}`}
-    >
-      {children}
-    </div>
-  );
-};
+// Reusable BentoBox Component
+
 
 const Landing = () => {
   const facilityList = [
@@ -34,7 +27,7 @@ const Landing = () => {
 
       <div className="grid grid-cols-1 md:grid-cols-4 gap-5">
         {/* Hero */}
-        <Card className="col-span-full p-6 md:p-12 bg-black/20 text-center">
+        <BentoBox className="col-span-full p-6 md:p-12 bg-black/20 text-center">
           <h1 className="text-lime-400 font-extrabold text-4xl md:text-7xl uppercase tracking-wide mb-7">
             From Click to Kick!
           </h1>
@@ -42,10 +35,10 @@ const Landing = () => {
             Find and book the best futsal grounds near you with just a few
             clicks
           </p>
-        </Card>
+        </BentoBox>
 
-        {/* Main Booking Card */}
-        <Card className="md:col-span-2 md:row-span-2 p-6 md:p-10 bg-[linear-gradient(rgba(0,0,0,0.4),rgba(0,0,0,0.4)),url(https://images.unsplash.com/photo-1574629810360-7efbbe195018?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80)] bg-cover bg-center bg-no-repeat flex flex-col justify-end">
+        {/* Main Booking BentoBox */}
+        <BentoBox className="md:col-span-2 md:row-span-2 p-6 md:p-10 bg-[linear-gradient(rgba(0,0,0,0.4),rgba(0,0,0,0.4)),url(https://images.unsplash.com/photo-1574629810360-7efbbe195018?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80)] bg-cover bg-center bg-no-repeat flex flex-col justify-end">
           <h2 className="font-bold mb-5 text-2xl md:text-3xl">
             Book Your Futsal Experience,
             <br />
@@ -54,10 +47,10 @@ const Landing = () => {
           <button className="px-7 py-3 bg-lime-400 text-green-950 font-bold rounded-full hover:bg-lime-300 transition self-start">
             Book Now
           </button>
-        </Card>
+        </BentoBox>
 
         {/* Stats */}
-        <Card className="md:col-span-2 p-6 md:p-10 flex items-center justify-center bg-lime-400/10">
+        <BentoBox className="md:col-span-2 p-6 md:p-10 flex items-center justify-center bg-lime-400/10">
           <div className="flex justify-around w-full">
             {[
               { num: "200+", label: "Grounds" },
@@ -74,10 +67,10 @@ const Landing = () => {
               </div>
             ))}
           </div>
-        </Card>
+        </BentoBox>
 
         {/* Why Choose Us */}
-        <Card className="md:col-span-1 p-6 md:p-8 flex flex-col justify-center bg-white/3">
+        <BentoBox className="md:col-span-1 p-6 md:p-8 flex flex-col justify-center bg-white/3">
           <h3 className="text-lime-400 font-bold text-lg mb-4">
             Why Choose Us
           </h3>
@@ -95,20 +88,20 @@ const Landing = () => {
               </li>
             ))}
           </ul>
-        </Card>
+        </BentoBox>
 
         {/* Testimonial */}
-        <Card className="md:col-span-1 p-6 md:p-8 flex flex-col justify-center text-center bg-white/3">
+        <BentoBox className="md:col-span-1 p-6 md:p-8 flex flex-col justify-center text-center bg-white/3">
           <p className="italic text-white/90 leading-relaxed mb-5">
             "GameDay has completely transformed how we book our weekly matches.
             No more phone calls or waiting for confirmations!"
           </p>
 
           <p className="font-bold text-lime-400">— Alex Chen, Regular Player</p>
-        </Card>
+        </BentoBox>
 
         {/* Referee Section */}
-        <Card className="md:col-span-2 md:row-span-2 py-8 md:py-10 px-6 md:px-20 flex flex-col justify-center bg-black/10">
+        <BentoBox className="md:col-span-2 md:row-span-2 py-8 md:py-10 px-6 md:px-20 flex flex-col justify-center bg-black/10">
           <h2 className="text-lime-400 font-bold text-2xl md:text-3xl">
             Whistle ready?
           </h2>
@@ -120,10 +113,10 @@ const Landing = () => {
           <button className="px-8 py-3 bg-lime-400 text-green-950 font-bold rounded-full hover:bg-lime-300 transition self-start text-lg md:text-xl">
             Register Now
           </button>
-        </Card>
+        </BentoBox>
 
         {/* Facilities */}
-        <Card className="md:col-span-2 md:row-span-2 py-8 md:py-10 px-6 md:px-8 flex flex-col justify-center bg-white/5">
+        <BentoBox className="md:col-span-2 md:row-span-2 py-8 md:py-10 px-6 md:px-8 flex flex-col justify-center bg-white/5">
           <h2 className="text-lime-400 font-bold text-xl md:text-2xl mb-6">
             Top-Notch Facilities
           </h2>
@@ -144,10 +137,10 @@ const Landing = () => {
               </div>
             ))}
           </div>
-        </Card>
+        </BentoBox>
 
         {/* Partner Section */}
-        <Card className="md:col-span-2 md:row-span-2 py-8 md:py-10 px-6 md:px-20 flex flex-col justify-center bg-black/10">
+        <BentoBox className="md:col-span-2 md:row-span-2 py-8 md:py-10 px-6 md:px-20 flex flex-col justify-center bg-black/10">
           <h2 className="text-lime-400 font-bold text-2xl md:text-3xl">
             Partner With Us: <br />
             List Your Ground or Academy Today!
@@ -159,17 +152,17 @@ const Landing = () => {
           <button className="px-8 py-3 bg-lime-400 text-green-950 font-bold rounded-full hover:bg-lime-300 transition self-start text-lg md:text-xl">
             Register Now
           </button>
-        </Card>
+        </BentoBox>
 
         {/* CTA */}
-        <Card className="md:col-span-2 md:row-span-2 py-8 md:py-10 px-6 md:px-20 flex flex-col justify-center items-center text-center bg-black/10">
+        <BentoBox className="md:col-span-2 md:row-span-2 py-8 md:py-10 px-6 md:px-20 flex flex-col justify-center items-center text-center bg-black/10">
           <h2 className="text-lime-400 font-bold text-2xl md:text-3xl mb-8">
             Ready to Play?
           </h2>
           <button className="px-8 py-3 bg-lime-400 text-green-950 font-bold rounded-full hover:bg-lime-300 transition text-lg md:text-xl">
             Get Started Now
           </button>
-        </Card>
+        </BentoBox>
       </div>
       <Footer />
     </div>
