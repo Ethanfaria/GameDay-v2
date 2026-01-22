@@ -7,6 +7,7 @@ import {
   faShower,
 } from "@fortawesome/free-solid-svg-icons";
 import NavBar from "../components/NavBar";
+import Footer from "../components/Footer";
 
 // Reusable Card Component
 const Card = ({ children, className = "" }) => {
@@ -170,6 +171,7 @@ const Landing = () => {
           </button>
         </Card>
       </div>
+      <Footer />
     </div>
   );
 };
