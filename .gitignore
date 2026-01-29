@@ -1,7 +1,22 @@
-# Frontend
-gameday/node_modules
-gameday/dist
+# ===== Environment & Secrets =====
+.env
+gameday-backend/.env
+gameday/.env*
+*.pem
+*.key
 
-# Backend
-gameday-backend/target
-gameday-backend/.idea
+# ===== Backend =====
+gameday-backend/target/
+gameday-backend/.idea/
+gameday-backend/src/main/resources/application.properties
+gameday-backend/src/main/resources/application-prod.properties
+
+# ===== Frontend =====
+gameday/node_modules/
+gameday/dist/
+gameday/.vscode/
+
+# ===== OS / Editor =====
+.DS_Store
+Thumbs.db
+*.log
