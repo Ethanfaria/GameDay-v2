@@ -1,0 +1,7 @@
+# Frontend
+gameday/node_modules
+gameday/dist
+
+# Backend
+gameday-backend/target
+gameday-backend/.idea
