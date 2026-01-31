@@ -14,6 +14,8 @@ public class Facility {
     private String facilityName;
     @Column(nullable = false, columnDefinition = "TEXT")
     private String location;
+    private String description;
+    private String image_url;
     @ManyToOne (fetch = FetchType.LAZY)
     @JoinColumn(name = "owner_id", nullable = false)
     private User owner;
