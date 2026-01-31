@@ -3,10 +3,11 @@ package com.gameday.backend.model;
 import jakarta.persistence.*;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "bookings")
+@Table(name = "bookings", uniqueConstraints=@UniqueConstraint(columnNames = {"ground_id", "user_id", "slot_id"}))
 public class Booking {
     @Id
     private String bookingId;
@@ -19,14 +20,14 @@ public class Booking {
     @ManyToOne (fetch = FetchType.LAZY)
     @JoinColumn(name = "slot_id", nullable = false)
     private TimeSlot timeSlot;
-    private LocalDateTime bookingDate;
+    private LocalDate bookingDate;
     @Enumerated(EnumType.STRING)
     private Status status;
     private BigDecimal amount;
     private LocalDateTime createdAt;
 
     public Booking(){}
-    public Booking(String bookingId, Ground ground, User user, TimeSlot timeSlot, LocalDateTime bookingDate, Status status, BigDecimal amount, LocalDateTime createdAt) {
+    public Booking(String bookingId, Ground ground, User user, TimeSlot timeSlot, LocalDate bookingDate, Status status, BigDecimal amount, LocalDateTime createdAt) {
         this.bookingId = bookingId;
         this.ground = ground;
         this.user = user;
@@ -36,4 +37,5 @@ public class Booking {
         this.amount = amount;
         this.createdAt = createdAt;
     }
+    
 }
