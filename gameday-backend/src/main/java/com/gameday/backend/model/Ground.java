@@ -1,9 +1,14 @@
 package com.gameday.backend.model;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+
+@Getter
+@Setter
 @Entity
 @Table(name = "grounds")
 public class Ground{
@@ -30,7 +35,7 @@ public class Ground{
         public Ground(){}
         public Ground(String groundId, Facility facility, String name, Sport sport,
                       BigDecimal length, BigDecimal breadth, BigDecimal hourlyRate,
-                      boolean isActive, LocalDateTime createdAt) {
+                      boolean isActive) {
                 this.groundId = groundId;
                 this.facility = facility;
                 this.name = name;
@@ -39,7 +44,6 @@ public class Ground{
                 this.breadth = breadth;
                 this.hourlyRate = hourlyRate;
                 this.isActive = isActive;
-                this.createdAt = createdAt;
         }
 
         @PrePersist

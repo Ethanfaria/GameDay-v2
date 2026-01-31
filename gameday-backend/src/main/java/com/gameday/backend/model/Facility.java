@@ -1,9 +1,13 @@
 package com.gameday.backend.model;
 
 import jakarta.persistence.*;
-
+import lombok.Getter;
+import lombok.Setter;
 import java.time.LocalDateTime;
+import java.util.List;
 
+@Getter
+@Setter
 @Entity
 @Table(name = "facilities")
 public class Facility {
@@ -15,10 +19,13 @@ public class Facility {
     @Column(nullable = false, columnDefinition = "TEXT")
     private String location;
     private String description;
-    private String image_url;
+    @Column(name = "image_url")
+    private String imageUrl;
     @ManyToOne (fetch = FetchType.LAZY)
     @JoinColumn(name = "owner_id", nullable = false)
     private User owner;
+    @OneToMany(mappedBy = "facility", fetch = FetchType.LAZY)
+    private List<Ground> grounds;
     @Column(name = "is_active")
     private boolean isActive=true;
     @Column(name = "created_at", updatable = false)
@@ -26,13 +33,11 @@ public class Facility {
 
     public Facility(){}
 
-    public Facility(String facilityId, String facilityName, String location, User owner, boolean isActive, LocalDateTime createdAt) {
+    public Facility(String facilityId, String facilityName, String location, User owner) {
         this.facilityId = facilityId;
         this.facilityName = facilityName;
         this.location = location;
         this.owner = owner;
-        this.isActive = isActive;
-        this.createdAt = createdAt;
     }
 
     @PrePersist
