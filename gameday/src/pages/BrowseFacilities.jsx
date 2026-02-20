@@ -11,7 +11,6 @@ const BrowseFacilities = () => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
-    ;
 
     useEffect(() => {
         api.get("/facilities")
