@@ -20,5 +20,4 @@ public class FacilityController {
     public List<FacilityCardDTO> getAllFacilities() {
         return facilityRepository.findFacilityCards();
     }
-
 }

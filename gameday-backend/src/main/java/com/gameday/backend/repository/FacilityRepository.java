@@ -22,4 +22,13 @@ public interface FacilityRepository extends JpaRepository<Facility, String> {
     GROUP BY f.facilityId, f.facilityName, f.location, f.imageUrl
     """)
     List<FacilityCardDTO> findFacilityCards();
+    @Query("""
+    SELECT f
+    FROM Facility f
+    LEFT JOIN FETCH f.grounds
+    WHERE f.facilityId = :id
+    """)
+    Facility findFacilityWithGrounds(String id);
+
+
 }
