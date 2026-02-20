@@ -5,14 +5,20 @@ import jakarta.persistence.*;
 import java.time.LocalTime;
 
 @Entity
-@Table(name = "timeslots", uniqueConstraints = @UniqueConstraint(columnNames = {"start_time", "end_time"}))
-
+@Table(
+        name = "time_slots",
+        uniqueConstraints = @UniqueConstraint(columnNames = {"start_time", "end_time"})
+)
 public class TimeSlot {
+
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "slot_id")
-    private int slot_id;
+    private Integer slotId;
+
     @Column(name = "start_time", nullable = false)
-    private LocalTime start_time;
+    private LocalTime startTime;
+
     @Column(name = "end_time", nullable = false)
-    private LocalTime end_time;
+    private LocalTime endTime;
 }
