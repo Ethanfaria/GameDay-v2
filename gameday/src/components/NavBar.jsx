@@ -1,6 +1,9 @@
 import React, { useState } from "react";
 import logo from "../assets/gameday.png";
-import { Link } from "react-router-dom";
+import { Link,useNavigate } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCircleUser } from "@fortawesome/free-solid-svg-icons";
+
 
 const NavBar = () => {
   const navItems = [
@@ -12,6 +15,8 @@ const NavBar = () => {
     { name: "FAQ", path: "/faq" },
   ];
   const [menuOpen, setMenuOpen] = useState(false);
+  const user=JSON.parse(localStorage.getItem('user'));
+  const navigate=useNavigate();
 
   return (
     <nav className="sticky top-0 z-50 backdrop-blur-md  px-[5%] py-4 mb-8">
@@ -36,18 +41,32 @@ const NavBar = () => {
 
         {/* Actions */}
         <div className="hidden md:flex items-center">
-          <Link
-            to="/login"
-            className="px-4 py-2 text-white font-medium rounded-2xl transition-all duration-300 hover:bg-[rgba(0,100,50,0.3)]"
-          >
-            Login
-          </Link>
-          <Link
-            to="/register"
-            className="ml-4 px-5 py-2.5 bg-lime-400 text-green-950 font-bold rounded-full transition-all duration-300 hover:scale-105 hover:bg-[#d1ff4d] hover:shadow-[0_5px_15px_rgba(185,255,0,0.3)]"
-          >
-            Get Started
-          </Link>
+          {user ? (
+              <div className="flex items-center gap-3">
+                <Link
+                    to="/dashboard"
+                    className="flex items-center gap-2 px-4 py-2 text-white font-medium rounded-2xl transition-all duration-300 hover:bg-[rgba(0,100,50,0.3)]"
+                >
+                  <FontAwesomeIcon icon={faCircleUser} className="text-lime-400 text-4xl" />
+                </Link>
+              </div>
+          ):(
+              <>
+                <Link
+                    to="/login"
+                    className="px-4 py-2 text-white font-medium rounded-2xl transition-all duration-300 hover:bg-[rgba(0,100,50,0.3)]"
+                >
+                  Login
+                </Link>
+                <Link
+                    to="/register"
+                    className="ml-4 px-5 py-2.5 bg-lime-400 text-green-950 font-bold rounded-full transition-all duration-300 hover:scale-105 hover:bg-[#d1ff4d] hover:shadow-[0_5px_15px_rgba(185,255,0,0.3)]"
+                >
+                  Get Started
+                </Link>
+              </>
+          )}
+
         </div>
 
         {/* Mobile Menu Button */}
@@ -73,19 +92,32 @@ const NavBar = () => {
               {item.name}
             </Link>
           ))}
-
-          <Link
-              to="/login"
-            className="px-4 py-2 text-white font-medium rounded-2xl transition-all duration-300 hover:bg-[rgba(0,100,50,0.3)]"
-          >
-            Login
-          </Link>
-          <Link
-              to="/register"
-            className="px-5 py-2.5 bg-lime-400 text-green-950 font-bold rounded-full transition-all duration-300 hover:scale-105 hover:bg-[#d1ff4d] hover:shadow-[0_5px_15px_rgba(185,255,0,0.3)] text-center"
-          >
-            Get Started
-          </Link>
+          {user ? (
+              <>
+                <Link
+                    to="/dashboard"
+                    className="flex items-center gap-2 px-4 py-2 text-lime-400 font-medium rounded-2xl transition-all duration-300 hover:bg-[rgba(0,100,50,0.3)]"
+                >
+                  <FontAwesomeIcon icon={faCircleUser} className="text-xl" />
+                  {user.name}
+                </Link>
+              </>
+          ) : (
+              <>
+                <Link
+                    to="/login"
+                    className="px-4 py-2 text-white font-medium rounded-2xl transition-all duration-300 hover:bg-[rgba(0,100,50,0.3)]"
+                >
+                  Login
+                </Link>
+                <Link
+                    to="/register"
+                    className="px-5 py-2.5 bg-lime-400 text-green-950 font-bold rounded-full transition-all duration-300 hover:scale-105 hover:bg-[#d1ff4d] text-center"
+                >
+                  Get Started
+                </Link>
+              </>
+          )}
         </div>
       )}
     </nav>
