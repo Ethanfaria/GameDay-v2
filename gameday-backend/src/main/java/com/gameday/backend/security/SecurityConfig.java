@@ -3,6 +3,7 @@ package com.gameday.backend.security;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -25,7 +26,11 @@ public class SecurityConfig {
                 .cors(Customizer.withDefaults())
                 .sessionManagement(s -> s.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/register", "/login", "/api/facilities/**").permitAll()
+                        .requestMatchers("/register", "/login").permitAll()
+                        .requestMatchers("/api/facilities/**").permitAll()
+                        .requestMatchers("/api/grounds/**").permitAll()
+                        .requestMatchers("/api/bookings/booked-slots").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/api/bookings").permitAll()
                         .anyRequest().authenticated()
                 )
                 .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);

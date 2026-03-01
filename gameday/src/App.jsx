@@ -7,6 +7,7 @@ import Dashboard from './pages/Dashboard'
 import BrowseFacilities from "./pages/BrowseFacilities.jsx";
 import Placeholder from "./pages/Placeholder.jsx";
 import FacilityDetails from "./pages/FacilityDetails.jsx";
+import Checkout from "./pages/Checkout.jsx";
 
 const App = () => {
   return (
@@ -22,6 +23,7 @@ const App = () => {
           <Route path="/about" element={<Placeholder title="About" />} />
           <Route path="/faq" element={<Placeholder title="FAQ" />} />
           <Route path="/facilities/:id" element={<FacilityDetails/>}/>
+          <Route path="/checkout" element={<Checkout/>} />
       </Routes>
     </BrowserRouter>
   )

@@ -16,25 +16,20 @@ const FacilityDetails = () => {
     const [selectedDate, setSelectedDate] = useState(null);
     const [selectedSlot, setSelectedSlot] = useState(null);
 
-    // Mock booked data (replace with backend API later)
-    const bookedSlots = {
-        "2026-02-01": ["6:00 AM - 7:00 AM", "8:00 PM - 9:00 PM"],
-    };
-
     const { id } = useParams()
 
     useEffect(() => {
         api.get(`/facilities/${id}`).then(res => {
             setFacility(res.data)
             setGrounds(res.data.grounds || [])
-
             if (res.data.grounds?.length > 0) {
                 setSelectedGround(res.data.grounds[0])
             }
         })
     }, [id])
-
-
+    useEffect(() => {
+        setSelectedSlot(null);
+    }, [selectedGround, selectedDate]);
     return (
         <div className="min-h-screen bg-green-950 text-white px-4 md:px-6">
             <NavBar />
@@ -75,7 +70,7 @@ const FacilityDetails = () => {
 
                 <TimeSlots
                     selectedDate={selectedDate}
-                    bookedSlots={bookedSlots}
+                    groundId={selectedGround?.groundId}
                     onSelect={setSelectedSlot}
                 />
 
@@ -83,6 +78,7 @@ const FacilityDetails = () => {
                     date={selectedDate}
                     slot={selectedSlot}
                     price={selectedGround?.hourlyPrice}
+                    groundId={selectedGround?.groundId}
                 />
             </div>
 

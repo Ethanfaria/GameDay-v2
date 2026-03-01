@@ -1,19 +1,54 @@
 import { useEffect, useRef, useState } from "react";
-
+import api from "../services/api";
 const formatTime = (hour) => {
     const ampm = hour >= 12 ? "PM" : "AM";
     let h = hour % 12 || 12;
     return `${h}:00 ${ampm}`;
 };
 
-const TimeSlots = ({ selectedDate, bookedSlots = {}, onSelect }) => {
+const pad = (n) => String(n).padStart(2, "0");
+const DAYS = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+
+const TimeSlots = ({ selectedDate, groundId, onSelect}) => {
     const sliderRef = useRef(null);
-    const [selectedSlot, setSelectedSlot] = useState(null);
+    const [selectedHour, setSelectedHour] = useState(null);
+    const [openHour, setOpenHour] = useState(null);
+    const [closeHour, setCloseHour] = useState(null);
+    const [bookedTimes, setBookedTimes] = useState([]);
+    const [closed, setClosed] = useState(false);
+    const [loading, setLoading] = useState(false);
 
     useEffect(() => {
-        setSelectedSlot(null);
-    }, [selectedDate]);
+        setSelectedHour(null);
+    }, [selectedDate,groundId]);
 
+    useEffect(() => {
+        if(!groundId||!selectedDate) return;
+        const dayName = DAYS[selectedDate.getDay()];
+        setLoading(true);
+        setClosed(false);
+
+        api.get(`/grounds/${groundId}/hours?day=${dayName}`)
+            .then(res => {
+                setOpenHour(parseInt(res.data.openTime.split(":")[0]));
+                setCloseHour(parseInt(res.data.closeTime.split(":")[0]));
+            })
+            .catch(()=>{
+                setClosed(true);
+                setOpenHour(null);
+                setCloseHour(null);
+            })
+        .finally(()=>
+            setLoading(false));
+    }, [groundId, selectedDate]);
+
+    useEffect(()=>{
+        if(!groundId||!selectedDate) return;
+        const dateStr = selectedDate.toISOString().split('T')[0];
+        api.get(`/bookings/booked-slots?groundId=${groundId}&date=${dateStr}`)
+            .then(res=>setBookedTimes(res.data.map(t=>t.substring(0,5))))
+            .catch(()=>setBookedTimes([]));
+    }, [groundId, selectedDate])
     const scroll = (dir) => {
         sliderRef.current.scrollBy({
             left: dir === "next" ? 200 : -200,
@@ -22,11 +57,9 @@ const TimeSlots = ({ selectedDate, bookedSlots = {}, onSelect }) => {
     };
 
     if (!selectedDate) return null;
-
-    const startHour = 6;
-    const endHour = 22;
-    const dateKey = selectedDate.toISOString().split("T")[0];
-    const booked = bookedSlots[dateKey] || [];
+    if(loading) return<p className="text-center text-gray-400">Loading Slots...</p>;
+    if(closed) return <p className="text-center text-gray-400">This ground is closed on this day.</p>;
+    if(openHour===null)return null;
 
     const today = new Date();
     const isToday =
@@ -46,31 +79,31 @@ const TimeSlots = ({ selectedDate, bookedSlots = {}, onSelect }) => {
                 ref={sliderRef}
                 className="flex gap-4 overflow-x-auto px-14 scrollbar-hide"
             >
-                {[...Array(endHour - startHour)].map((_, i) => {
-                    const hour = startHour + i;
-
+                {Array.from({length: closeHour-openHour},(_,i)=>openHour+i).map(hour => {
                     if (isToday && hour <= currentHour) return null;
 
-                    const start = formatTime(hour);
-                    const end = formatTime(hour + 1);
-                    const range = `${start} - ${end}`;
-                    const isBooked = booked.includes(range);
-                    const selected = selectedSlot === range;
+                    const startStr = `${pad(hour)}:00` ;
+                    const endStr = `${pad(hour + 1)}:00`;
+                    const isBooked = bookedTimes.includes(startStr);
+                    const selected = selectedHour === hour;
 
                     return (
                         <div
-                            key={range}
+                            key={hour}
                             onClick={() => {
                                 if (isBooked) return;
-                                setSelectedSlot(range);
-                                onSelect(range);
+                                setSelectedHour(hour);
+                                onSelect({
+                                    startTime: startStr,
+                                    endTime: endStr,
+                                    timeRange: `${formatTime(hour)} - ${formatTime(hour + 1)}`,
+                                });
                             }}
                             className={`min-w-28 p-4 rounded-xl transition cursor-pointer
                             ${
                                 isBooked
                                     ? "bg-red-900/40 text-red-400 cursor-not-allowed"
-                                    : selected
-                                        ? "bg-lime-400  text-green-900 shadow-xl"
+                                    : selected ? "bg-lime-400  text-green-900 shadow-xl" 
                                         : "bg-white/10 hover:bg-lime-400/30"
                             }`}
                         >
@@ -83,8 +116,8 @@ const TimeSlots = ({ selectedDate, bookedSlots = {}, onSelect }) => {
                                             ? "text-green-900"
                                             : "text-lime-400"
                                 }`}
-                                >{start}</span>
-                                <span className="text-sm opacity-80">{end}</span>
+                                >{formatTime(hour)}</span>
+                                <span className="text-sm opacity-80">{formatTime(hour + 1)}</span>
                                 <span className="text-xs font-bold">
                   {isBooked ? "Booked" : "Available"}
                 </span>

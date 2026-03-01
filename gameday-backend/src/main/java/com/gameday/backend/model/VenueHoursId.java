@@ -1,6 +1,7 @@
 package com.gameday.backend.model;
 
 import jakarta.persistence.*;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -9,6 +10,7 @@ import java.time.DayOfWeek;
 
 @Getter
 @Setter
+@EqualsAndHashCode
 @Embeddable
 public class VenueHoursId implements Serializable {
 
