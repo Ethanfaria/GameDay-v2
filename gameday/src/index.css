@@ -3,7 +3,11 @@
   body{
     font-family: "Montserrat", "Arial", sans-serif;
   }
+  html, body, #root {
+    @apply min-h-screen bg-green-950;
+  }
 }
+
 .scrollbar-hide {
   -ms-overflow-style: none;  /* IE/Edge */
   scrollbar-width: none;     /* Firefox */
