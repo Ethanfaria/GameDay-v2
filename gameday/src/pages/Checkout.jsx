@@ -59,11 +59,11 @@ const Checkout = () => {
 
     return (
         <div className="min-h-screen bg-green-950 text-white px-4 md:px-6">
-            <div className="flex justify-center items-center p-5" >
-                <BentoBox className="bg-white/10 rounded-xl gap-4 w-full max-w-2/4">
-                    <form onSubmit={handleSubmit} className="p-6">
+            <div className="flex justify-center items-center py-6 sm:py-10" >
+                <BentoBox className="bg-white/10 rounded-xl gap-4 w-full max-w-xl md:max-w-2xl lg:max-w-3xl">
+                    <form onSubmit={handleSubmit} className="p-4 sm:p-6">
                         <h1 className="text-3xl font-bold text-lime-400 text-center pb-5">Order Summary</h1>
-                        <div className="bg-black/10 p-6 rounded-xl">
+                        <div className="bg-black/10 p-4 sm:p-6 rounded-xl text-sm sm:text-base">
                             <div className="flex justify-between py-2 border-b border-gray-50/10">
                                 <p>Booking Type</p>
                                 <p>Turf Booking</p>
@@ -74,7 +74,7 @@ const Checkout = () => {
                             </div>
                             <div className="flex justify-between py-2 border-b border-gray-50/10">
                                 <p>Date and Time</p>
-                                <p>{bookingData.bookingDate} | {bookingData.timeRange}</p>
+                                <p className="text-right break-words">{bookingData.bookingDate} | {bookingData.timeRange}</p>
                             </div>
                             <div className="flex justify-between ">
                                 <p className="text-lime-400 text-xl pt-3 font-bold">Total Amount</p>

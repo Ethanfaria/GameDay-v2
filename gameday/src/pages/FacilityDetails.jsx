@@ -65,7 +65,7 @@ const FacilityDetails = () => {
                     )}
                 </div>
             </BentoBox>
-            <div className="mt-6 md:mx-20">
+            <div className="mt-6 md:mx-20 pb-20 md:pb-0">
                 <DateSlider onSelect={setSelectedDate} />
 
                 <TimeSlots
