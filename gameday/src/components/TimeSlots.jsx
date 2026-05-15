@@ -57,7 +57,13 @@ const TimeSlots = ({ selectedDate, groundId, onSelect}) => {
     };
 
     if (!selectedDate) return null;
-    if(loading) return<p className="text-center text-gray-400">Loading Slots...</p>;
+    if (loading) return (
+        <div className="flex gap-4 px-14 mt-8">
+            {[...Array(5)].map((_, i) => (
+                <div key={i} className="min-w-28 h-24 rounded-xl bg-white/10 animate-pulse" />
+            ))}
+        </div>
+    );
     if(closed) return <p className="text-center text-gray-400">This ground is closed on this day.</p>;
     if(openHour===null)return null;
 
