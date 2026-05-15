@@ -8,6 +8,7 @@ import BrowseFacilities from "./pages/BrowseFacilities.jsx";
 import Placeholder from "./pages/Placeholder.jsx";
 import FacilityDetails from "./pages/FacilityDetails.jsx";
 import Checkout from "./pages/Checkout.jsx";
+import BrowseAcademies from "./pages/BrowseAcademies.jsx";
 
 const App = () => {
   return (
